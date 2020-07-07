@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Coordinates {
-
   /// The geographic coordinate that specifies the north–south position of a point on the Earth's surface.
   final double latitude;
 
@@ -12,21 +11,23 @@ class Coordinates {
   Coordinates(this.latitude, this.longitude);
 
   /// Creates coordinates from a map containing its properties.
-  Coordinates.fromMap(Map map) :
-        this.latitude = map["latitude"],
+  Coordinates.fromMap(Map map)
+      : this.latitude = map["latitude"],
         this.longitude = map["longitude"];
 
   /// Creates a map from the coordinates properties.
   Map toMap() => {
-    "latitude": this.latitude,
-    "longitude": this.longitude,
-  };
+        "latitude": this.latitude,
+        "longitude": this.longitude,
+      };
 
   String toString() => "{$latitude,$longitude}";
 }
 
 @immutable
 class Address {
+  final String placeId;
+
   /// The geographic coordinates.
   final Coordinates coordinates;
 
@@ -66,22 +67,24 @@ class Address {
   final String subThoroughfare;
 
   Address(
-    {this.coordinates,
-    this.viewport,
-    this.addressLine,
-    this.countryName,
-    this.countryCode,
-    this.featureName,
-    this.postalCode,
-    this.adminArea,
-    this.subAdminArea,
-    this.locality,
-    this.subLocality,
-    this.thoroughfare,
-    this.subThoroughfare});
+      {this.placeId,
+      this.coordinates,
+      this.viewport,
+      this.addressLine,
+      this.countryName,
+      this.countryCode,
+      this.featureName,
+      this.postalCode,
+      this.adminArea,
+      this.subAdminArea,
+      this.locality,
+      this.subLocality,
+      this.thoroughfare,
+      this.subThoroughfare});
 
   /// Creates an address from a map containing its properties.
-  Address.fromMap(Map map) :
+  Address.fromMap(Map map)
+      : this.placeId = map["placeId"],
         this.coordinates = new Coordinates.fromMap(map["coordinates"]),
         this.addressLine = map["addressLine"],
         this.countryName = map["countryName"],
@@ -95,23 +98,24 @@ class Address {
         this.thoroughfare = map["thoroughfare"],
         this.subThoroughfare = map["subThoroughfare"],
         this.viewport = map["viewport"]
-          .toList()
-          .map<Coordinates>((coordinates) => Coordinates.fromMap(coordinates))
-          .toList();
+            .toList()
+            .map<Coordinates>((coordinates) => Coordinates.fromMap(coordinates))
+            .toList();
 
   /// Creates a map from the address properties.
   Map toMap() => {
-    "coordinates": this.coordinates.toMap(),
-    "addressLine": this.addressLine,
-    "countryName": this.countryName,
-    "countryCode": this.countryCode,
-    "featureName": this.featureName,
-    "postalCode": this.postalCode,
-    "locality": this.locality,
-    "subLocality": this.subLocality,
-    "adminArea": this.adminArea,
-    "subAdminArea": this.subAdminArea,
-    "thoroughfare": this.thoroughfare,
-    "subThoroughfare": this.subThoroughfare,
-  };
+        "placeId": this.placeId,
+        "coordinates": this.coordinates.toMap(),
+        "addressLine": this.addressLine,
+        "countryName": this.countryName,
+        "countryCode": this.countryCode,
+        "featureName": this.featureName,
+        "postalCode": this.postalCode,
+        "locality": this.locality,
+        "subLocality": this.subLocality,
+        "adminArea": this.adminArea,
+        "subAdminArea": this.subAdminArea,
+        "thoroughfare": this.thoroughfare,
+        "subThoroughfare": this.subThoroughfare,
+      };
 }
